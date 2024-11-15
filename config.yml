@@ -1,0 +1,15 @@
+model_params:
+  model_type: "YOLOv11"
+  model_name: "./py/yolov11.pt"
+  img_size: 640
+  device: "cuda"
+  data: "./dataset/sample/"
+  optimizer: "Adam"
+  epochs: 50
+  hyp: "./hpy/hyp.scratch.custom.yaml"
+  cfg: "./cfg/yolov7-animal_sample.yaml"
+  wandb_token: "ec5f8b774518ef76ccba414d42f6e689fbc59a03"
+
+training_params:
+  batch_size: 16
+  learning_rate: 0.01
