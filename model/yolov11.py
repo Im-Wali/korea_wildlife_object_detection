@@ -1,4 +1,5 @@
 # models/yolo.py
+from ultralytics import YOLO
 from .base_model import BaseModel
 import subprocess
 
