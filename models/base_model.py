@@ -9,6 +9,7 @@ class BaseModel(ABC):
         self.data = data
         self.optimizer = optimizer
         self.epochs = epochs
+        self.model = None
 
     @abstractmethod
     def load_model(self):
