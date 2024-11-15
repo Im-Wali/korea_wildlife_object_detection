@@ -1,6 +1,6 @@
 # models/model_factory.py
-from .yolo7 import YOLOv7
-from .yolo11 import YOLOv11
+from .yolov7 import YOLOv7
+from .yolov11 import YOLOv11
 from .rtdetr import RTDETR
 
 def create_model(model_type, **kwargs):
