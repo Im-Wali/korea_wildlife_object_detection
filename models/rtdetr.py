@@ -3,13 +3,13 @@ from .base_model import BaseModel
 from ultralytics import RTDETR
 
 class RTDETR(BaseModel):
-    def __init__(self, model_name, img_size, device, data, optimizer, epochs):
+    def __init__(self, model_name, img_size, device, data, optimizer, epochs,hyp,cfg,wandb_token):
         super().__init__(model_name, img_size, device, data, optimizer, epochs)
         
 
     def load_model(self):
         # YOLOv11 모델 초기화 또는 가중치 로드
-        self.model = RTDETR("rtdetr-l.pt")
+        self.model = RTDETR(self.model_name)
         # self.model = RTDETR("rtdetr-x.pt")
         self.model.to(self.device)
 

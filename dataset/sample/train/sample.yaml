@@ -1,5 +1,0 @@
-train: /home/K2023511/Object_Detection/yolo_test/train
-val: /home/K2023511/Object_Detection/yolo_test/val
-
-nc: 1  # 클래스 개수
-names: ["inermis"]  # 클래스 이름 목록

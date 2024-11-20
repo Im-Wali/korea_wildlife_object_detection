@@ -1,9 +1,9 @@
 model_params:
   model_type: "YOLOv11"
-  model_name: "./py/yolov11.pt"
+  model_name: "./pt/yolo11n.pt"
   img_size: 640
-  device: "cuda"
-  data: "./dataset/sample/"
+  device: "cpu"
+  data: "./dataset/sample/sample.yaml"
   optimizer: "Adam"
   epochs: 50
   hyp: "./hpy/hyp.scratch.custom.yaml"
