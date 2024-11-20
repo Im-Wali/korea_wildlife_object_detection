@@ -1,6 +1,8 @@
 # models/yolo.py
 from .base_model import BaseModel
 import subprocess
+import wandb
+
 
 class YOLOv7(BaseModel):
     def __init__(self, model_name, img_size, device, data, optimizer, epochs, hyp=None, cfg=None, wandb_token=None):
@@ -16,12 +18,13 @@ class YOLOv7(BaseModel):
     def train(self):
         # subprocess로 YOLOv7 학습 스크립트 실행
         command = [
-            "python", "train.py",
+            "python", "./yolov7/train.py",
             "--weights", self.model_name,
             "--img-size", str(self.img_size),
             "--device", self.device,
             "--data", self.data,
-            "--optimizer", self.optimizer,
+            # "--optimizer",
+            '--' + self.optimizer,
             "--epochs", str(self.epochs)
         ]
         if self.hyp:
@@ -29,10 +32,10 @@ class YOLOv7(BaseModel):
         if self.cfg:
             command.extend(["--cfg", self.cfg])
         if self.wandb_token:
-            command.extend(["--wandb_token", self.wandb_token])
+            wandb.login(key=self.wandb_token)
         
         subprocess.run(command)
 
-    def save(self, save_path):
+    def save(self):
         # 학습된 모델을 저장
         pass
