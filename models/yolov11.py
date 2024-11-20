@@ -1,6 +1,7 @@
 # models/yolo.py
 from ultralytics import YOLO
 from .base_model import BaseModel
+from datetime import datetime
 
 class YOLOv11(BaseModel):
     def __init__(self, model_name, img_size, device, data, optimizer, epochs,hyp,cfg,wandb_token):
@@ -17,7 +18,16 @@ class YOLOv11(BaseModel):
         self.model.to(self.device)
 
     def train(self):
-        self.model.train(data=self.data, epochs=self.epochs, imgsz=self.img_size)
+        # 현재 날짜와 시간 가져오기
+        now = datetime.now()
+
+        # 원하는 날짜 및 시간 형식으로 변환
+        formatted_time = now.strftime("%Y%m%d_%H%M") 
+        self.model.train(data=self.data, 
+                        epochs=self.epochs, 
+                        imgsz=self.img_size,
+                        project='runs/yolo11',   # 저장 경로의 상위 폴더 이름
+                        name=f'yolo11_{self.epochs}_{formatted_time}'  ) # 하위 폴더 이름
 
     def save(self):
         #  학습 완료된 모델 저장

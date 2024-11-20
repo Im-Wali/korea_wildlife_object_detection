@@ -1,7 +1,7 @@
 # models/model_factory.py
 from .yolov7 import YOLOv7
 from .yolov11 import YOLOv11
-from .rtdetr import RTDETR
+from .rtdetr import RT_DETR
 
 def create_model(model_type, **kwargs):
     print(f"model_type : {model_type}")
@@ -10,6 +10,6 @@ def create_model(model_type, **kwargs):
     elif model_type == "YOLOv11":
         return YOLOv11(**kwargs)
     elif model_type == "RTDETR":
-        return RTDETR(**kwargs)
+        return RT_DETR(**kwargs)
     else:
         raise ValueError(f"Unknown model type: {model_type}")
