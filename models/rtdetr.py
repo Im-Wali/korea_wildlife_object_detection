@@ -4,8 +4,8 @@ from ultralytics import RTDETR
 from datetime import datetime
 
 class RT_DETR(BaseModel):
-    def __init__(self, model_name, img_size, device, data, optimizer, epochs,hyp,cfg,wandb_token):
-        super().__init__(model_name, img_size, device, data, optimizer, epochs)
+    def __init__(self, model_name, img_size, device, data, optimizer, epochs,batch_size,hyp,cfg,wandb_token):
+        super().__init__(model_name, img_size, device, data, optimizer,batch_size, epochs)
     
 
     def load_model(self):
@@ -23,6 +23,7 @@ class RT_DETR(BaseModel):
         self.model.train(data=self.data, 
                         epochs=self.epochs, 
                         imgsz=self.img_size,
+                        batch=self.batch_size,
                         project='runs/rtdetr',   # 저장 경로의 상위 폴더 이름
                         name=f'rtdetr_{self.epochs}_{formatted_time}'  ) # 하위 폴더 이름
 

@@ -4,8 +4,8 @@ from .base_model import BaseModel
 from datetime import datetime
 
 class YOLOv11(BaseModel):
-    def __init__(self, model_name, img_size, device, data, optimizer, epochs,hyp,cfg,wandb_token):
-        super().__init__(model_name, img_size, device, data, optimizer, epochs)
+    def __init__(self, model_name, img_size, device, data, optimizer, epochs,batch_size,hyp,cfg,wandb_token):
+        super().__init__(model_name, img_size, device, data, optimizer, epochs,batch_size)
         
 
     def load_model(self):
@@ -26,6 +26,7 @@ class YOLOv11(BaseModel):
         self.model.train(data=self.data, 
                         epochs=self.epochs, 
                         imgsz=self.img_size,
+                        batch=self.batch_size,
                         project='runs/yolo11',   # 저장 경로의 상위 폴더 이름
                         name=f'yolo11_{self.epochs}_{formatted_time}'  ) # 하위 폴더 이름
 

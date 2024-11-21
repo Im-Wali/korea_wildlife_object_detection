@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 import os
 
 class BaseModel(ABC):
-    def __init__(self, model_name, img_size, device, data, optimizer, epochs):
+    def __init__(self, model_name, img_size, device, data, optimizer, epochs,batch_size):
         self.model_name = model_name
         self.img_size = img_size
         self.device = device
@@ -11,6 +11,7 @@ class BaseModel(ABC):
         # self.data = data
         self.optimizer = optimizer
         self.epochs = epochs
+        self.batch_size = batch_size
         self.model = None
         # print(self.data)
 

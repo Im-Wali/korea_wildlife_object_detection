@@ -6,6 +6,7 @@ model_params:
   data: "./dataset/sample/sample.yaml"
   optimizer: "Adam"
   epochs: 50
+  batch_size: 4
   hyp: "./hpy/hyp.scratch.custom.yaml"
   cfg: "./cfg/yolov7-animal_sample.yaml"
   wandb_token: "ec5f8b774518ef76ccba414d42f6e689fbc59a03"

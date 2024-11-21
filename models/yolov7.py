@@ -5,8 +5,8 @@ import wandb
 
 
 class YOLOv7(BaseModel):
-    def __init__(self, model_name, img_size, device, data, optimizer, epochs, hyp=None, cfg=None, wandb_token=None):
-        super().__init__(model_name, img_size, device, data, optimizer, epochs)
+    def __init__(self, model_name, img_size, device, data, optimizer, epochs, batch_size, hyp=None, cfg=None, wandb_token=None):
+        super().__init__(model_name, img_size, device, data, optimizer, epochs,batch_size)
         self.hyp = hyp
         self.cfg = cfg
         self.wandb_token = wandb_token
@@ -23,6 +23,7 @@ class YOLOv7(BaseModel):
             "--img-size", str(self.img_size),
             "--device", self.device,
             "--data", self.data,
+            "--batch-size", self.batch_size,
             # "--optimizer",
             '--' + self.optimizer,
             "--epochs", str(self.epochs)
