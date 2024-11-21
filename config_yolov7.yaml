@@ -12,5 +12,4 @@ model_params:
   wandb_token: "ec5f8b774518ef76ccba414d42f6e689fbc59a03"
 
 training_params:
-  batch_size: 16
   learning_rate: 0.01
