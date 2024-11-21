@@ -347,12 +347,27 @@ class LoadStreams:  # multiple IP or RTSP cameras
 def img2label_paths(img_paths):
     # Define label paths as a function of image paths
     sa, sb = os.sep + 'images' + os.sep, os.sep + 'labels' + os.sep  # /images/, /labels/ substrings
-    return ['txt'.join(x.replace(sa, sb, 1).rsplit(x.split('.')[-1], 1)) for x in img_paths]
+    label_paths = []
+    for img_path in img_paths:
+        label_path = img_path.replace(sa, sb, 1)
+        label_path = label_path.rsplit('.', 1)[0] + '.txt'  # Change image extension to .txt
+
+        # Check if path exists, try matching with prefix
+        if not os.path.exists(label_path):
+            parent_dir = Path(label_path).parent
+            label_name = Path(label_path).stem.split('.')[0]  # Extract main part before '.'
+            # Search for matching folder
+            matches = list(parent_dir.glob(f"{label_name}*"))
+            if matches:
+                label_path = str(matches[0] / (Path(label_path).name))
+
+        label_paths.append(label_path)
+    return label_paths
 
 
 class LoadImagesAndLabels(Dataset):  # for training/testing
     def __init__(self, path, img_size=640, batch_size=16, augment=False, hyp=None, rect=False, image_weights=False,
-                cache_images=False, single_cls=False, stride=32, pad=0.0, prefix=''):
+                 cache_images=False, single_cls=False, stride=32, pad=0.0, prefix=''):
         self.img_size = img_size
         self.augment = augment
         self.hyp = hyp
@@ -371,14 +386,20 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
                     # Recursive search for all files matching image formats
                     f += [str(fp) for fp in p.rglob('*') if fp.suffix.lower()[1:] in img_formats]
                 elif p.is_file():  # file
-                    with open(p, 'r') as t:
+                    with open(p, 'r', encoding='utf-8') as t:  # Explicitly handle UTF-8 encoding
                         t = t.read().strip().splitlines()
                         parent = str(p.parent) + os.sep
                         f += [x.replace('./', parent) if x.startswith('./') else x for x in t]  # local to global path
                 else:
                     raise Exception(f'{prefix}{p} does not exist')
-            # self.img_files = sorted([x.replace('/', os.sep) for x in f if x.split('.')[-1].lower() in img_formats])
-            self.img_files = sorted([x.replace('/', os.sep) for x in f if x.split('.')[-1].lower() in img_formats and '.ipynb_checkpoints' not in x ])
+
+            # Sort and filter valid image files, ensuring '.ipynb_checkpoints' directories are excluded
+            self.img_files = sorted([x.replace('/', os.sep) for x in f 
+                                      if x.split('.')[-1].lower() in img_formats and '.ipynb_checkpoints' not in x])
+            
+            # Handle cases where directory names contain non-ASCII characters (like Korean folder names)
+            self.img_files = [os.path.normpath(x) for x in self.img_files]  # Normalize path for cross-platform consistency
+            
             assert self.img_files, f'{prefix}No images found'
         except Exception as e:
             raise Exception(f'{prefix}Error loading data from {path}: {e}\nSee {help_url}')
