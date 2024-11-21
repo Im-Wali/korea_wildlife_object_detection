@@ -23,7 +23,7 @@ class YOLOv7(BaseModel):
             "--img-size", str(self.img_size),
             "--device", self.device,
             "--data", self.data,
-            "--batch-size", self.batch_size,
+            "--batch-size", str(self.batch_size),
             # "--optimizer",
             '--' + self.optimizer,
             "--epochs", str(self.epochs)
