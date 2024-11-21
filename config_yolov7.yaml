@@ -3,10 +3,10 @@ model_params:
   model_name: "./pt/yolov7.pt"
   img_size: 640
   device: "cpu"
-  data: "./dataset/sample/sample.yaml"
+  data: "./dataset/sample/sample_yolov7.yaml"
   optimizer: "adam"
-  epochs: 50
-  batch_size: 4
+  epochs: 5
+  batch_size: 16
   hyp: "./hyp/hyp.scratch.custom.yaml"
   cfg: "./cfg/yolov7-animal_sample.yaml"
   wandb_token: "ec5f8b774518ef76ccba414d42f6e689fbc59a03"
