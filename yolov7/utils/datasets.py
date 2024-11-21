@@ -352,7 +352,7 @@ def img2label_paths(img_paths):
 
 class LoadImagesAndLabels(Dataset):  # for training/testing
     def __init__(self, path, img_size=640, batch_size=16, augment=False, hyp=None, rect=False, image_weights=False,
-                 cache_images=False, single_cls=False, stride=32, pad=0.0, prefix=''):
+                cache_images=False, single_cls=False, stride=32, pad=0.0, prefix=''):
         self.img_size = img_size
         self.augment = augment
         self.hyp = hyp
@@ -362,28 +362,28 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
         self.mosaic_border = [-img_size // 2, -img_size // 2]
         self.stride = stride
         self.path = path        
-        #self.albumentations = Albumentations() if augment else None
 
         try:
             f = []  # image files
             for p in path if isinstance(path, list) else [path]:
                 p = Path(p)  # os-agnostic
                 if p.is_dir():  # dir
-                    f += glob.glob(str(p / '**' / '*.*'), recursive=True)
-                    # f = list(p.rglob('**/*.*'))  # pathlib
+                    # Recursive search for all files matching image formats
+                    f += [str(fp) for fp in p.rglob('*') if fp.suffix.lower()[1:] in img_formats]
                 elif p.is_file():  # file
                     with open(p, 'r') as t:
                         t = t.read().strip().splitlines()
                         parent = str(p.parent) + os.sep
                         f += [x.replace('./', parent) if x.startswith('./') else x for x in t]  # local to global path
-                        # f += [p.parent / x.lstrip(os.sep) for x in t]  # local to global path (pathlib)
                 else:
                     raise Exception(f'{prefix}{p} does not exist')
             self.img_files = sorted([x.replace('/', os.sep) for x in f if x.split('.')[-1].lower() in img_formats])
-            # self.img_files = sorted([x for x in f if x.suffix[1:].lower() in img_formats])  # pathlib
             assert self.img_files, f'{prefix}No images found'
         except Exception as e:
             raise Exception(f'{prefix}Error loading data from {path}: {e}\nSee {help_url}')
+
+        # Generate label paths
+        self.label_files = img2label_paths(self.img_files)  # Convert image paths to label paths
 
         # Check cache
         self.label_files = img2label_paths(self.img_files)  # labels
