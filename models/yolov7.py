@@ -2,7 +2,7 @@
 from .base_model import BaseModel
 import subprocess
 import wandb
-
+import os
 
 class YOLOv7(BaseModel):
     def __init__(self, model_name, img_size, device, data, optimizer, epochs, batch_size, hyp=None, cfg=None, wandb_token=None):
@@ -34,7 +34,9 @@ class YOLOv7(BaseModel):
             command.extend(["--cfg", self.cfg])
         if self.wandb_token:
             wandb.login(key=self.wandb_token)
-        
+        os.environ["NUMEXPR_MAX_THREADS"] = "8"
+        os.environ["OMP_NUM_THREADS"] = "1"
+
         subprocess.run(command)
 
     def save(self):
