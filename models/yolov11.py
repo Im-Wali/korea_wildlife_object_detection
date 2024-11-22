@@ -32,5 +32,5 @@ class YOLOv11(BaseModel):
 
     def save(self):
         #  학습 완료된 모델 저장
-        fine_tuned_model_path = f"../model/yolov11/yolo_l_{self.epochs}.pt"
+        fine_tuned_model_path = f"../pt/yolov11/yolo_l_{self.epochs}.pt"
         self.model.save(fine_tuned_model_path)

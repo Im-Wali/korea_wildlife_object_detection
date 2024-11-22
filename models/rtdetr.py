@@ -29,5 +29,5 @@ class RT_DETR(BaseModel):
 
     def save(self):
         #  학습 완료된 모델 저장
-        fine_tuned_model_path = f"../model/rtdetr/rtdetr_l_{self.epochs}.pt"
+        fine_tuned_model_path = f"../pt/rtdetr/rtdetr_l_{self.epochs}.pt"
         self.model.save(fine_tuned_model_path)
