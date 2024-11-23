@@ -5,7 +5,7 @@ from datetime import datetime
 
 class RT_DETR(BaseModel):
     def __init__(self, model_name, img_size, device, data, optimizer, epochs,batch_size,hyp,cfg,wandb_token):
-        super().__init__(model_name, img_size, device, data, optimizer,batch_size, epochs)
+        super().__init__(model_name, img_size, device, data, optimizer,epochs,batch_size )
     
 
     def load_model(self):
