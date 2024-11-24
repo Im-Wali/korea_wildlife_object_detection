@@ -25,9 +25,10 @@ class RT_DETR(BaseModel):
                         imgsz=self.img_size,
                         batch=self.batch_size,
                         project='runs/rtdetr',   # 저장 경로의 상위 폴더 이름
-                        name=f'rtdetr_{self.epochs}_{formatted_time}'  ) # 하위 폴더 이름
+                        name=f'rtdetr_{self.epochs}_{formatted_time}' ,# 하위 폴더 이름
+                        num_workers=1 ) 
 
     def save(self):
         #  학습 완료된 모델 저장
-        fine_tuned_model_path = f"../pt/rtdetr/rtdetr_l_{self.epochs}.pt"
+        fine_tuned_model_path = f"pt/rtdetr/rtdetr_l_{self.epochs}.pt"
         self.model.save(fine_tuned_model_path)
