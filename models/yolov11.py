@@ -30,7 +30,7 @@ class YOLOv11(BaseModel):
                         batch=self.batch_size,
                         project='runs/yolo11',   # 저장 경로의 상위 폴더 이름
                         name=f'yolo11_{self.epochs}_{formatted_time}', # 하위 폴더 이름
-                        num_wokers=1 ) 
+                        wokers=2 ) 
 
     def save(self):
         #  학습 완료된 모델 저장
