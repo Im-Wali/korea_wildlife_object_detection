@@ -21,6 +21,7 @@ class YOLOv11(BaseModel):
         # 현재 날짜와 시간 가져오기
         now = datetime.now()
         # os.environ["NUMEXPR_MAX_THREADS"] = "2"
+        os.environ['NUMEXPR_MAX_THREADS'] = str(min(os.cpu_count(), 8)) 
 
         # 원하는 날짜 및 시간 형식으로 변환
         formatted_time = now.strftime("%Y%m%d_%H%M") 

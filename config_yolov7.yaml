@@ -2,7 +2,7 @@ model_params:
   model_type: "YOLOv7"
   model_name: "./pt/yolov7.pt"
   img_size: 640
-  device: "cpu"
+  device: "0" # 0이면 gpu
   data: "./dataset/sample/sample_yolov7.yaml"
   optimizer: "adam"
   epochs: 5
