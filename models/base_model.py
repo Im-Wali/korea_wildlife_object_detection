@@ -24,8 +24,13 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
+    def val(self):
+        pass
+
+    @abstractmethod
     def save(self, save_path):
         pass
+
 
     def load_data(self):
                 # YAML 파일 로드 및 경로 변환

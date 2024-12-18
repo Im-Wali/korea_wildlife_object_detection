@@ -30,7 +30,8 @@ class RT_DETR(BaseModel):
                         name=f'rtdetr_{self.epochs}_{formatted_time}' ,# 하위 폴더 이름
                         workers=2,
                         lr0=0.005
-                        ) 
+                        )
+         
     def val(self):
         # 현재 날짜와 시간 가져오기
         now = datetime.now()

@@ -33,6 +33,21 @@ class YOLOv11(BaseModel):
                         name=f'yolo11_{self.epochs}_{formatted_time}', # 하위 폴더 이름
                         workers=4 ) 
 
+    def val(self):
+        # 현재 날짜와 시간 가져오기
+        now = datetime.now()
+        os.environ['NUMEXPR_MAX_THREADS'] = str(min(os.cpu_count(), 8)) 
+
+        # 원하는 날짜 및 시간 형식으로 변환
+        formatted_time = now.strftime("%Y%m%d_%H%M")
+        self.model.val(data=self.data, 
+                        imgsz=self.img_size,
+                        batch=self.batch_size,
+                        project='runs/yolo11',   # 저장 경로의 상위 폴더 이름
+                        name=f'rtdetr_{self.epochs}_val_{formatted_time}' ,# 하위 폴더 이름
+                        workers=2
+                        ) 
+
     def save(self):
         #  학습 완료된 모델 저장
         fine_tuned_model_path = f"pt/yolov11/yolo_l_{self.epochs}.pt"
