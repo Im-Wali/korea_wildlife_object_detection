@@ -2,10 +2,10 @@ model_params:
   model_type: "YOLOv11"
   model_name: "./pt/yolo11n.pt"
   img_size: 640
-  device: "cpu"
+  device: "cpu" # cuda or cpu
   data: "./dataset/sample/sample.yaml"
   optimizer: "Adam"
-  epochs: 50
+  epochs: 3
   batch_size: 16
   hyp: "./hpy/hyp.scratch.custom.yaml"
   cfg: "./cfg/yolov7-animal_sample.yaml"

@@ -44,7 +44,7 @@ class YOLOv11(BaseModel):
                         imgsz=self.img_size,
                         batch=self.batch_size,
                         project='runs/yolo11',   # 저장 경로의 상위 폴더 이름
-                        name=f'rtdetr_{self.epochs}_val_{formatted_time}' ,# 하위 폴더 이름
+                        name=f'yolo11_{self.epochs}_val_{formatted_time}' ,# 하위 폴더 이름
                         workers=2
                         ) 
 

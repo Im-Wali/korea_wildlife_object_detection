@@ -1,0 +1,4 @@
+Model,metrics/mAP50-95(B),metrics/precision(B),metrics/recall(B),metrics/mAP50(B)
+RT-DETR,0.98504,0.98657,0.99293,0.94501
+YOLOv11,0.98555,0.98881,0.99318,0.95056
+YOLOv7,0.8458,0.7945,0.8644,0.6099

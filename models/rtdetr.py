@@ -29,7 +29,10 @@ class RT_DETR(BaseModel):
                         project='runs/rtdetr',   # 저장 경로의 상위 폴더 이름
                         name=f'rtdetr_{self.epochs}_{formatted_time}' ,# 하위 폴더 이름
                         workers=2,
-                        lr0=0.005
+                        lr0=0.0002,
+                        dropout=0.005,
+                        warmup_epochs=0, # 초기 몇 epoch 동안 학습률(Learning Rate)을 점진적으로 증가시키는 전략.(이부분이 없어야 내가 정한 학습률이 정상 작동하고 있는지 바로 알수 있음
+                        cos_lr=True # Cosine Annealing학습률 스케줄링(더 부드럽게 학습률을 조절하는 하이퍼파리미터)
                         )
          
     def val(self):
